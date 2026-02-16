@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niche Navigator - Find Your Tech & Web3 Path</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-6 py-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Niche Navigator</h1>
+          <p class="text-sm text-gray-600 mt-1">Discover your perfect tech & web3 career path</p>
+        </div>
+        <div class="flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full">
+          <span class="text-sm font-medium text-blue-700" id="progress-text">Start Quiz</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="bg-white rounded-2xl shadow-sm p-8 mb-6">
+      <div class="text-center max-w-2xl mx-auto">
+        <div class="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+          </svg>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Welcome to Your Tech Journey</h2>
+        <p class="text-lg text-gray-600 mb-8">Answer a few questions to discover which tech and web3 niches align with your interests, skills, and goals. This personalized assessment will help you find your perfect starting point.</p>
+        <button onclick="startQuiz()" class="px-8 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors shadow-sm">
+          Start Discovery
+        </button>
+      </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="hidden">
+      <div class="bg-white rounded-2xl shadow-sm p-8 mb-6">
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-medium text-gray-600" id="question-counter">Question 1 of 8</span>
+            <span class="text-sm font-medium text-blue-600" id="progress-percent">0%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div id="question-container">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6" id="question-text"></h3>
+          <div id="answers-container" class="space-y-3"></div>
+        </div>
+
+        <div class="flex justify-between mt-8">
+          <button onclick="previousQuestion()" id="prev-btn" class="px-6 py-2 text-gray-700 font-medium rounded-xl hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+            Previous
+          </button>
+          <button onclick="nextQuestion()" id="next-btn" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="hidden">
+      <div class="bg-white rounded-2xl shadow-sm p-8 mb-6">
+        <div class="text-center mb-8">
+          <div class="w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h2 class="text-3xl font-bold text-gray-900 mb-2">Your Recommended Niches</h2>
+          <p class="text-gray-600">Based on your responses, here are the best tech paths for you</p>
+        </div>
+
+        <div id="recommendations-container" class="space-y-4 mb-8"></div>
+
+        <div class="flex gap-4 justify-center">
+          <button onclick="resetQuiz()" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors">
+            Retake Quiz
+          </button>
+          <button onclick="shareResults()" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors shadow-sm">
+            Share Results
+          </button>
+        </div>
+      </div>
+
+      <!-- Learning Resources -->
+      <div class="bg-white rounded-2xl shadow-sm p-8">
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Next Steps</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <a href="#" class="p-4 border border-gray-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900 mb-1">Free Learning Resources</h4>
+                <p class="text-sm text-gray-600">Curated courses and tutorials</p>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="p-4 border border-gray-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900 mb-1">Join Communities</h4>
+                <p class="text-sm text-gray-600">Connect with others in your niche</p>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="p-4 border border-gray-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900 mb-1">Build Projects</h4>
+                <p class="text-sm text-gray-600">Hands-on project ideas to start</p>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="p-4 border border-gray-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900 mb-1">Career Roadmap</h4>
+                <p class="text-sm text-gray-600">Step-by-step career guide</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200 mt-16">
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <p class="text-center text-sm text-gray-600">Helping newcomers find their path in tech and web3</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
